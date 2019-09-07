@@ -2,7 +2,7 @@ package com.acmerobotics.robomatic.hardware;
 
 import android.util.Log;
 
-import com.acmerobotics.lib.robot.Robot;
+import com.acmerobotics.robomatic.robot.Robot;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.AnalogInputController;
 import com.qualcomm.robotcore.hardware.AnalogSensor;

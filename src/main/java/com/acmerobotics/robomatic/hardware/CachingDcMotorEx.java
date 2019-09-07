@@ -1,6 +1,6 @@
 package com.acmerobotics.robomatic.hardware;
 
-import com.acmerobotics.lib.robot.Robot;
+import com.acmerobotics.robomatic.robot.Robot;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;

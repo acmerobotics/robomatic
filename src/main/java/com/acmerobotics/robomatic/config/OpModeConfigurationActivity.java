@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.qualcomm.ftcrobotcontroller.R;
+import com.acmerobotics.robomatic.R;
 
 public class OpModeConfigurationActivity extends Activity {
 
@@ -16,7 +16,7 @@ public class OpModeConfigurationActivity extends Activity {
         super.onCreate(savedInstancesState);
 
         setContentView(R.layout.activity_opmode_configuration);
-        layout = (LinearLayout) findViewById(R.id.opmode_config);
+        layout = findViewById(R.id.opmode_config);
         layout.setPadding(25, 25, 25, 25);
 
         ConfigurationLoader loader = new ConfigurationLoader(this);

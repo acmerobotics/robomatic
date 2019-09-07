@@ -5,8 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 
-import com.acmerobotics.dashboard.util.ClassFilter;
-import com.acmerobotics.dashboard.util.ClasspathScanner;
+import com.acmerobotics.dashboard.config.reflection.ClasspathScanner;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -53,7 +52,7 @@ public class ConfigurationLoader {
         sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         configurationFields = new ArrayList<>();
 
-        ClasspathScanner scanner = new ClasspathScanner(new ClassFilter() {
+        ClasspathScanner scanner = new ClasspathScanner(new ClasspathScanner.Callback() {
             @Override
             public boolean shouldProcessClass(String className) {
                 for (String packageName: IGNORED_PACKAGES)
