@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    tools:context="com.acmerobotics.lib.config.OpModeConfigurationActivity"
+    tools:context="com.acmerobotics.robomatic.config.OpModeConfigurationActivity"
     android:id="@+id/opmode_config"
     android:keepScreenOn="true"
     android:layout_height="match_parent">
