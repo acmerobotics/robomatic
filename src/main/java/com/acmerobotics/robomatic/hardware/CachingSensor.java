@@ -8,6 +8,7 @@ public class CachingSensor<T> implements CachingHardwareDevice{
 
     private UpdateCall<T> call;
     private T value;
+    private boolean enabled = true;
 
     public CachingSensor (UpdateCall<T> call) {
         this.call = call;
@@ -15,10 +16,14 @@ public class CachingSensor<T> implements CachingHardwareDevice{
 
     @Override
     public void update () {
-        value = call.call();
+        if (enabled) value = call.call();
     }
 
     public T getValue () {
         return value;
+    }
+
+    public void setEnabled (boolean enabled) {
+        this.enabled = enabled;
     }
 }

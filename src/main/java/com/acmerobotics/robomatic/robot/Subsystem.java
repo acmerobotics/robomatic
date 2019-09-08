@@ -1,9 +1,15 @@
 package com.acmerobotics.robomatic.robot;
 
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.dashboard.canvas.Canvas;
 
-public interface Subsystem {
+public abstract class Subsystem {
 
-    void update(TelemetryPacket packet);
+    protected TelemetryData telemetryData;
+
+    protected Subsystem(String telemetryPrefix) {
+        telemetryData = new TelemetryData(telemetryPrefix);
+    }
+
+    public abstract void update(Canvas fieldOverlay);
 
 }

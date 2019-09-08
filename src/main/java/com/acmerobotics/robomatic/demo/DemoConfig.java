@@ -1,10 +1,10 @@
 package com.acmerobotics.robomatic.demo;
 
 import com.acmerobotics.robomatic.config.IntegerConfiguration;
-import com.acmerobotics.robomatic.config.OpmodeConfiguration;
 
-@OpmodeConfiguration
+// @OpmodeConfiguration you need to enable this annotation to use a config
 public class DemoConfig {
+
     public enum AllianceColor {
         RED,
         BLUE,
@@ -19,11 +19,13 @@ public class DemoConfig {
 
     public StartLocation startLocation;
 
+
     public boolean latched;
 
     public boolean sampleBoth;
 
     public boolean playMusic;
+
 
     @IntegerConfiguration(max=10)
     public int delay;
