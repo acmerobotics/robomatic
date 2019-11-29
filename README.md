@@ -1,35 +1,46 @@
 # Installing
 ## Add the submodule
 
-From the root of the project (e.g. path/to/projects/skystone) run git submodule add https://github.com/acmerobotics/robomatic.git
+From the root of the project (e.g. path/to/projects/skystone) run `git submodule add https://github.com/acmerobotics/robomatic.git`
 
-In the future after cloning the project new users will need to run git submodule init and git submodule update to get the submodule.
-Installation
+In the future after cloning the project new users will need to run `git submodule init` and `git submodule update` to populate the submodule files into the Robomatic folder created by cloning the main project.
 
-In the build.release.gradle file in both the FtcRobotController and TeamCode modules, add the line implementation project(':Robomatic') to the end of the dependencies. Sync gradle when prompted.
+## Installation
 
-Follow the instructions to install the dashboard. In step three make sure to add the dependency to the Robomatic module. During step 8, in the same locations you are told to add lines, add 
+* In **settings.gradle** for the project add `include ':robotmatic'`
+* In the **build.release.gradle** file in both the FtcRobotController and TeamCode modules, add the line `implementation project(':robomatic')` to the end of the dependencies. 
+* Sync gradle when prompted.
+* Follow the instructions to install the dashboard. 
+  * In step three of the dashboard installation instructions make sure to add the dependency to the Robomatic module. 
+  * During step 8 of the dashboard installation instructions:
+    * In the first location where you are told to add lines also add: `OpModeConfigurationActivity.populateMenu(menu, this);`
+    * In the second location also add: `OpModeConfigurationActivity.populateMenu(popupMenu.getMenu(), FtcRobotControllerActivity.this);`
 
-OpModeConfigurationActivity.populateMenu(menu, this);
-in the first location and 
+# Usage
+## Robots
 
-OpModeConfigurationActivity.populateMenu(popupMenu.getMenu(), FtcRobotControllerActivity.this);
+The robot class controls the main loop that provides efficient asynchronous control of hardware. 
+Hardware devices and CachingSensors accessed through the robot will only communicate with the rev 
+hubs once per loop, and only write data if they need to. Each iteration of the main loop the robot 
+will: 
+1. update bulk data from the rev hubs 
+2. update caching sensors 
+3. call each of the subsystem's update method 
+4. update dashboard telemetry
+5. write any changes to motor or servo commands to the rev hubs
 
-in the second.
-Usage
-Robots
+## Usage
 
-The robot class controls the main loop that provides efficient asynchronous control of hardware. Hardware devices and CachingSensors accessed through the robot will only communicate with the rev hubs once per loop, and only write data if they need to. Each iteration of the main loop the robot will: update bulk data from the rev hubs, update caching sensors, call each of the subsystem's update method, update dashboard telemetry, and finaly write any changes to motor or servo commands to the rev hubs.
-Usage
+To make your own robot, extend the Robot class. The robot will contain all the subsystems and interface 
+with all the hardware.
 
-To make your own robot, extend the Robot class. The robot will contain all the subsystems and interface with all the hardware.
-
-Enable devices connected to a rev hub by registering the hub with the robot by puting the line registerHub("<configured name>") in the constructor of your robot class.
-
-After initializing the subsystem in your robot's constructor register the subsystem with registerSubsystem(<subsystem>);
-
+Enable devices connected to a rev hub by registering the hub with the robot by puting the line 
+ `registerHub("<configured name>")` in the constructor of your robot class.
+ 
+After initializing the subsystem in your robot's constructor register the subsystem with `registerSubsystem(<subsystem>);`
 Pass the robot into your subsystems so they can interact with the robot loop and hardware.
-Accessing Hardware
+
+## Accessing Hardware
 
 To use the caching hardware devices provided by the robot, access hardware from the robot rather than directly from the hardware map. The methods getMotor, getServo, getDigitalChannel, and getAnalogSensor take a name a device is registered with in the hardware map, and return a hardware device that is managed by the robot.
 
