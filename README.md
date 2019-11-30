@@ -16,6 +16,27 @@ In the future after cloning the project new users will need to run `git submodul
     * In the first location where you are told to add lines also add: `OpModeConfigurationActivity.populateMenu(menu, this);`
     * In the second location also add: `OpModeConfigurationActivity.populateMenu(popupMenu.getMenu(), FtcRobotControllerActivity.this);`
 
+## Java 8
+
+Robomatic makes use of lambdas which require Java 8. Java 8 has been supported in Android Studio since 3.0 but the source and target compatability for Java 8 must be specified in the project build files. The Robomatic gradle file contains
+the section: 
+```
+   compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+```
+which indicates to gradle that it uses Java 8. This may be sufficient to work with your project. However, if you get build errors from this you may need to include the same section in the `build.gradle` file for the TeamCode module. Add this section:
+```
+android {
+     compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+```
+**after** the `apply from: '../build.common.gradle'` line so it overwrites the preference set there. Alternatively, if you want all of your modules to support using Java 8 features add that section to the `build.common.gradle` file in the main SkyStone project, replacing the current source and target compatibility indicator of Java 1.7. To our knowledge, this does not cause any issues with Java 7 code or code for older API levels as the Android tools convert the byte code to be supported by the older API level through the use of their "desugaring" tools. 
+
 # Usage
 ## Robots
 
