@@ -13,8 +13,8 @@ In the future after cloning the project new users will need to run `git submodul
 * Follow the instructions to install the dashboard. 
   * In step three of the dashboard installation instructions make sure to add the dependency to the Robomatic module. 
   * During step 8 of the dashboard installation instructions:
-    * In the first location where you are told to add lines also add: `OpModeConfigurationActivity.populateMenu(menu, this);`
-    * In the second location also add: `OpModeConfigurationActivity.populateMenu(popupMenu.getMenu(), FtcRobotControllerActivity.this);`
+    * In the first location where you are told to add lines also add: `OpModeConfigurationActivity.populateMenu(popupMenu.getMenu(), FtcRobotControllerActivity.this);`
+    * In the second location also add: `OpModeConfigurationActivity.populateMenu(menu, this);`
 
 ## Java 8
 
