@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 public class CachingDcMotorEx implements DcMotorEx, CachingHardwareDevice {
 
@@ -232,6 +233,26 @@ public class CachingDcMotorEx implements DcMotorEx, CachingHardwareDevice {
     @Override
     public synchronized void resetDeviceConfigurationForOpMode() {
         delegate.resetDeviceConfigurationForOpMode();
+    }
+
+    @Override
+    public synchronized double getCurrent(CurrentUnit unit) {
+        return delegate.getCurrent(unit);
+    }
+
+    @Override
+    public synchronized double getCurrentAlert(CurrentUnit unit) {
+        return delegate.getCurrentAlert(unit);
+    }
+
+    @Override
+    public synchronized void setCurrentAlert(double current, CurrentUnit unit) {
+        delegate.setCurrentAlert(current, unit);
+    }
+
+    @Override
+    public synchronized boolean isOverCurrent() {
+        return delegate.isOverCurrent();
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.acmerobotics.robomatic.hardware;
 
-import android.support.annotation.NonNull;
-
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
@@ -13,6 +11,8 @@ import com.qualcomm.robotcore.util.TypeConversion;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.nio.ByteOrder;
+
+import androidx.annotation.NonNull;
 
 @I2cSensor(name = "VCNL4010 Proximity Sensor", description = "Proximity Sensor from Adafruit", xmlTag = "VCNL4010")
 public class VCNL4010ProximitySensor extends I2cDeviceSynchDeviceWithParameters<I2cDeviceSynch, VCNL4010ProximitySensor.Parameters> implements DistanceSensor {
