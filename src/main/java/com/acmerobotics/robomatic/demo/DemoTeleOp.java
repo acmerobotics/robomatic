@@ -4,7 +4,7 @@ import com.acmerobotics.robomatic.util.StickyGamepad;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="DemoTeleOp")
+//@TeleOp(name="DemoTeleOp")
 public class DemoTeleOp extends LinearOpMode {
 
     @Override

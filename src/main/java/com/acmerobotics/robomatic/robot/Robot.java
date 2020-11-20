@@ -11,6 +11,8 @@ import com.acmerobotics.robomatic.hardware.CachingHardwareDevice;
 import com.acmerobotics.robomatic.hardware.CachingSensor;
 import com.acmerobotics.robomatic.hardware.CachingServo;
 import com.acmerobotics.robomatic.hardware.LynxOptimizedI2cFactory;
+import com.acmerobotics.robomatic.util.StickyGamepad;
+import com.acmerobotics.robomatic.util.TeleOpActionImpl;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.BNO055IMUImpl;
 import com.qualcomm.hardware.lynx.LynxEmbeddedIMU;
@@ -41,8 +43,14 @@ public abstract class Robot {
 
     private HardwareMap map;
     private LinearOpMode opmode;
+    private boolean inTeleOp;
+
+    private StickyGamepad stickyGamepad1;
+    private StickyGamepad stickyGamepad2;
 
     private List<Subsystem> subsystems;
+
+    private List<TeleOpActionImpl> teleOpActions;
 
     private Map<DcMotorController, LynxModule> motorControllers;
     private Map<AnalogInputController, LynxModule> analogInputControllers;
@@ -59,9 +67,10 @@ public abstract class Robot {
     private Map<String, Object> telemetry;
     private List<String> telemetryLines;
 
-    public Robot (LinearOpMode opmode) {
+    public Robot (LinearOpMode opmode, boolean inTeleOp) {
         this.map = opmode.hardwareMap;
         this.opmode = opmode;
+        this.inTeleOp = inTeleOp;
 
         motorControllers = new HashMap<>(2);
         analogInputControllers = new HashMap<>(2);
@@ -77,6 +86,11 @@ public abstract class Robot {
         telemetryLines = new ArrayList<>();
 
         subsystems = new ArrayList<>();
+
+        teleOpActions = new ArrayList<>();
+
+        stickyGamepad1 = new StickyGamepad(opmode.gamepad1);
+        stickyGamepad2 = new StickyGamepad(opmode.gamepad2);
 
     }
 
@@ -131,11 +145,22 @@ public abstract class Robot {
         FtcDashboard.getInstance().sendTelemetryPacket(packet);
     }
 
+    private void updateTeleOpAction(){
+        if (inTeleOp) {
+            for (TeleOpActionImpl teleOpAction : teleOpActions) {
+                teleOpAction.action(opmode.gamepad1, opmode.gamepad2, stickyGamepad1, stickyGamepad2);
+                stickyGamepad1.update();
+                stickyGamepad2.update();
+            }
+        }
+    }
+
     public void update () {
         updateBulkData();
         updateCachingSensors();
         updateSubsystems();
         updateCachingHardwareDevices();
+        updateTeleOpAction();
     }
 
     public interface Target {
@@ -191,6 +216,10 @@ public abstract class Robot {
 
     public void registerCachingSensor (CachingSensor sensor) {
         if (!cachingSensors.contains(sensor)) cachingSensors.add(sensor);
+    }
+
+    public void registerTeleOpAction(TeleOpActionImpl teleOpAction){
+        teleOpActions.add(teleOpAction);
     }
 
     private LynxGetBulkInputDataResponse getBulkResponse (DcMotorController controller) {
