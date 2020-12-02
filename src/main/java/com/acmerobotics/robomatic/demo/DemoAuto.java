@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class DemoAuto extends LinearOpMode {
     @Override
     public void runOpMode() {
-        DemoRobot robot = new DemoRobot(this);
+        DemoRobot robot = new DemoRobot(this, false);
 
         DemoConfig config = (DemoConfig) new ConfigurationLoader(hardwareMap.appContext).getConfig();
 

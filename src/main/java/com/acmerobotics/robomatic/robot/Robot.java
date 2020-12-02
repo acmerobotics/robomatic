@@ -202,6 +202,10 @@ public abstract class Robot {
         return new BulkReadDigitalChannel(this, map.get(DigitalChannelImpl.class, deviceName));
     }
 
+    public int getPhoneCameraId(){
+        return map.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", map.appContext.getPackageName());
+    }
+
     protected void registerHub (String deviceName) {
         LynxModule hub = map.get(LynxModule.class, deviceName);
         hubs.add(hub);

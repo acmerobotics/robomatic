@@ -9,7 +9,7 @@ public class DemoTeleOp extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        DemoRobot robot = new DemoRobot(this);
+        DemoRobot robot = new DemoRobot(this, true);
         StickyGamepad stickyGamepad1 = new StickyGamepad(gamepad1);
 
         telemetry.addLine("init");
