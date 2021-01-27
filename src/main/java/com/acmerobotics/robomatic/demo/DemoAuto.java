@@ -4,11 +4,11 @@ import com.acmerobotics.robomatic.config.ConfigurationLoader;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="demoAuto")
+//@Autonomous(name="demoAuto")
 public class DemoAuto extends LinearOpMode {
     @Override
     public void runOpMode() {
-        DemoRobot robot = new DemoRobot(this);
+        DemoRobot robot = new DemoRobot(this, false);
 
         DemoConfig config = (DemoConfig) new ConfigurationLoader(hardwareMap.appContext).getConfig();
 

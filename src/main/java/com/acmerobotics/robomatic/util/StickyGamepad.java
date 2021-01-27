@@ -16,6 +16,7 @@ public class StickyGamepad {
     private boolean left_bumper_down, right_bumper_down;
     private boolean left_stick_button_down, right_stick_button_down;
 
+    // makes it so a press and hold on the gamepad counts as a single press and doesn't get looped over
     public StickyGamepad(Gamepad gamepad) {
         this.gamepad = gamepad;
     }
