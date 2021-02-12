@@ -30,6 +30,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +60,8 @@ public abstract class Robot {
 
     private Map<String, Object> telemetry;
     private List<String> telemetryLines;
+    public WebcamName webcam;
+
 
     public Robot (LinearOpMode opmode) {
         this.map = opmode.hardwareMap;
@@ -78,6 +82,7 @@ public abstract class Robot {
 
         subsystems = new ArrayList<>();
 
+        webcam = map.get(WebcamName.class, "Webcam");
     }
 
     public void addTelemetry (String caption, Object value) {
@@ -167,6 +172,15 @@ public abstract class Robot {
         CachingServo servo = new CachingServo( map.get(Servo.class, deviceName));
         cachingHardwareDevices.add(servo);
         return servo;
+    }
+
+    public WebcamName getWebcam() {
+        return webcam;
+    }
+
+    public int getCameraMonitorViewId(){
+        int cameraMonitorViewId = map.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", map.appContext.getPackageName());
+        return cameraMonitorViewId;
     }
 
     public AnalogSensor getAnalogSensor (String deviceName) {
