@@ -7,14 +7,10 @@ In the future after cloning the project new users will need to run `git submodul
 
 ## Installation
 
+* Install the [FTC dashboard](https://acmerobotics.github.io/ftc-dashboard/gettingstarted)
 * In **settings.gradle** for the project add `include ':robomatic'`
-* In the **build.release.gradle** file in both the FtcRobotController and TeamCode modules, add the line `implementation project(':robomatic')` to the end of the dependencies. 
+* In **build.dependencies.gradle** add the line `implementation project(':robomatic')` to the end of the dependencies. 
 * Sync gradle when prompted.
-* Follow the instructions to install the dashboard. 
-  * In step three of the dashboard installation instructions make sure to add the dependency to the Robomatic module. 
-  * During step 8 of the dashboard installation instructions:
-    * In the first location where you are told to add lines also add: `OpModeConfigurationActivity.populateMenu(popupMenu.getMenu(), FtcRobotControllerActivity.this);`
-    * In the second location also add: `OpModeConfigurationActivity.populateMenu(menu, this);`
 
 ## Java 8
 
@@ -74,3 +70,15 @@ The robot can also run its own main loop, updating itself until one of several c
 * `runUntilStop` will run the main loop until the opmode is stopped.
 * `runForTime` will run the main loop for a specified number of milliseconds. This is useful if you want a delay between actions in auto, but would like the loop to continue to run.
 * `runUntil` accepts a lambda target. The loop will be run until the lambda returns true.
+
+## OpMode Configuration
+To create an opmode configuration, mark a public class with the annotation `@OpmodeConfiguration`.
+A menu option will be created within the app to edit the public members of this class, and then these values will be available to a running opmode.
+Public boolean and enum fields from the configuration class will automaticaly be made editable, as well as all integer fields marked with `@IntegerConfiguration` (a max for integers must be provided.) 
+See [DemoConfig.java](src/main/java/com/acmerobotics/robomatic/demo/DemoConfig.java) for a sample configuration from the Rover Ruckus season.
+### Accessing Configurations
+Use the `ConfigurationLoader` to access your config at runtime. You will need to pass in the app context available from the hardwareMap.
+The configuration loader will retreive the first configuration type it finds in the class path, so you should only have one class marked with `@OpmodeConfiguration` at a time.
+The configuration loader will return a plain object, so you will need to cast to your custom configuration type.
+Ex:
+    `DemoConfig config = (DemoConfig) new ConfigurationLoader(hardwareMap.appContext).getConfig();`

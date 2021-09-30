@@ -1,5 +1,6 @@
 package com.acmerobotics.robomatic.config;
 
+import android.content.Context;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,18 +9,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import org.firstinspires.ftc.ftccommon.external.OnCreateMenu;
+
 import com.acmerobotics.robomatic.R;
 
 public class OpModeConfigurationActivity extends Activity {
 
     private LinearLayout layout;
 
-    public static void  populateMenu(Menu menu, Activity activity) {
+    @OnCreateMenu
+    public static void  populateMenu(Context context, Menu menu) {
         MenuItem item = menu.add(Menu.NONE, Menu.NONE, 700, "Configure OpMode");
         item.setVisible(true);
         item.setOnMenuItemClickListener((menuItem) -> {
-            Intent intent = new Intent(activity, OpModeConfigurationActivity.class);
-            activity.startActivity(intent);
+            Intent intent = new Intent(context, OpModeConfigurationActivity.class);
+            context.startActivity(intent);
             return true;
         });
     }
