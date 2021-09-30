@@ -7,8 +7,8 @@ public class DemoRobot extends Robot {
 
     public final DemoSubsystem subsystem;
 
-    public DemoRobot(LinearOpMode opmode) {
-        super(opmode);
+    public DemoRobot(LinearOpMode opmode, boolean inTeleOp) {
+        super(opmode, inTeleOp);
 
         registerHub("hub0");
 
